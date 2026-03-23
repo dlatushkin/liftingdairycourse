@@ -11,6 +11,12 @@ npm run start    # Start production server
 npm run lint     # Run ESLint
 ```
 
+## Docs
+
+**IMPORTANT:** Before generating any code, always check the `/docs` folder for relevant documentation files and follow the guidelines defined there. The `/docs` folder contains specs, conventions, and design decisions that must be respected in all generated code.
+
+- /docs/ui.md
+
 ## Architecture
 
 Next.js 16 app using the **App Router** (not Pages Router) with React 19, TypeScript 5 (strict mode), and Tailwind CSS v4.
