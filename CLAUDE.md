@@ -16,6 +16,7 @@ npm run lint     # Run ESLint
 **IMPORTANT:** Before generating any code, always check the `/docs` folder for relevant documentation files and follow the guidelines defined there. The `/docs` folder contains specs, conventions, and design decisions that must be respected in all generated code.
 
 - /docs/ui.md
+- /docs/data-fetching.md
 
 ## Architecture
 
