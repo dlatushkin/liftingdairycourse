@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider, SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,23 +31,35 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=localStorage.getItem('theme');if(t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}})()`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
-        <ClerkProvider>
-          <header>
-            <Show when="signed-out">
-              <SignInButton mode="modal">
-                <Button>Sign In</Button>
-              </SignInButton>
-              <SignUpButton mode="modal">
-                <Button variant="outline">Sign Up</Button>
-              </SignUpButton>
-            </Show>
-            <Show when="signed-in">
-              <UserButton />
-            </Show>
-          </header>
-          {children}
-        </ClerkProvider>
+        <ThemeProvider>
+          <ClerkProvider>
+            <header className="flex items-center justify-between px-4 py-2">
+              <div className="flex items-center gap-2">
+                <Show when="signed-out">
+                  <SignInButton mode="modal">
+                    <Button>Sign In</Button>
+                  </SignInButton>
+                  <SignUpButton mode="modal">
+                    <Button variant="outline">Sign Up</Button>
+                  </SignUpButton>
+                </Show>
+                <Show when="signed-in">
+                  <UserButton />
+                </Show>
+              </div>
+              <ThemeSwitcher />
+            </header>
+            {children}
+          </ClerkProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
