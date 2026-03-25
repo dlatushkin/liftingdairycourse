@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
@@ -55,17 +56,19 @@ export default function WorkoutCalendar({
           </Card>
         ) : (
           workouts.map((workout) => (
-            <Card key={workout.id}>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">
-                  {workout.name ?? "Untitled Workout"}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground flex gap-4">
-                <span>{workout.exerciseCount} exercises</span>
-                <span>{format(workout.startedAt, "h:mm a")}</span>
-              </CardContent>
-            </Card>
+            <Link key={workout.id} href={`/dashboard/workout/${workout.id}`} className="block">
+              <Card className="hover:bg-accent transition-colors cursor-pointer">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base">
+                    {workout.name ?? "Untitled Workout"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-muted-foreground flex gap-4">
+                  <span>{workout.exerciseCount} exercises</span>
+                  <span>{format(workout.startedAt, "h:mm a")}</span>
+                </CardContent>
+              </Card>
+            </Link>
           ))
         )}
       </div>
